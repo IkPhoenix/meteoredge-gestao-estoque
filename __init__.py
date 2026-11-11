@@ -1,5 +1,5 @@
 import os
-from flask import Flask
+from flask import Flask, render_template
 from sqlalchemy import event
 from sqlalchemy.engine import Engine
 from sqlite3 import Connection
@@ -28,6 +28,10 @@ def create_app(test_config=None):
         db.create_all()
     from .routes import api
     app.register_blueprint(api)
+
+    @app.get('/')
+    def index():
+        return render_template('index.html')
 
     @app.get('/health')
     def health():

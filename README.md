@@ -34,3 +34,14 @@ Invoke-RestMethod -Uri http://127.0.0.1:5000/api/entradas -Method Post -ContentT
 
 ## Versionamento
 Os cinco pacotes de alterações representam etapas reais e devem ser publicados separadamente, com mensagens semânticas `feat:` e `test:`. Nunca invente SHAs ou datas.
+## Critérios de validação do estoque
+
+O sistema deverá verificar a quantidade disponível antes de registrar qualquer saída de mercadorias.
+
+- Não permitir saídas com quantidade maior que o saldo disponível.
+- Rejeitar quantidades negativas ou iguais a zero.
+- Preservar o saldo quando uma operação for rejeitada.
+- Registrar movimentações válidas vinculadas ao lote correspondente.
+- Apresentar mensagens claras de confirmação ou erro.
+
+Esses critérios orientarão os testes de integridade do estoque e a revisão técnica do MVP.

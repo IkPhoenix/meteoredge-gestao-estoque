@@ -15,6 +15,9 @@ jobs:
     name: Build e testes automatizados
     runs-on: ubuntu-latest
 
+    env:
+      PYTHONPATH: ${{ github.workspace }}
+
     steps:
       - name: Baixar codigo do repositorio
         uses: actions/checkout@v4
@@ -35,4 +38,3 @@ jobs:
 
       - name: Executar testes e medir cobertura
         run: python -m pytest -v --cov=app --cov-report=term-missing
-

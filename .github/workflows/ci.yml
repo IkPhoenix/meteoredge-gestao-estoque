@@ -1,1 +1,38 @@
 
+name: CI - MeteorEdge Estoque
+
+"on":
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  testes:
+    name: Build e testes automatizados
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Baixar codigo do repositorio
+        uses: actions/checkout@v4
+
+      - name: Configurar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Instalar dependencias
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements.txt
+          python -m pip install pytest pytest-cov
+
+      - name: Verificar sintaxe Python
+        run: python -m compileall -q app run.py
+
+      - name: Executar testes e medir cobertura
+        run: python -m pytest -v --cov=app --cov-report=term-missing
+
